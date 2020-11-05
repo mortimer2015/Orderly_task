@@ -2,7 +2,7 @@
 * @Author: Hunter
 * @Date: 2020/11/2 11:13
 **/
-package app
+package controller
 
 import (
 	"fmt"
@@ -83,7 +83,7 @@ func NewController(
 	}
 
 	klog.Info("Setting up event handlers")
-	// Set up an event handler for when Foo resources change
+
 	fooInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
 		AddFunc: controller.add,
 		UpdateFunc: func(old, new interface{}) {

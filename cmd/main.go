@@ -18,10 +18,9 @@ package main
 
 import (
 	"flag"
-	"k8s.io/contro/cmd/app"
+	controller2 "k8s.io/contro/pkg/controller"
 	"time"
 
-	kubeinformers "k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/klog/v2"
@@ -68,14 +67,14 @@ func main() {
 		klog.Fatalf("Error building example clientset: %s", err.Error())
 	}
 
-	kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeClient, time.Second*30)
+	//kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeClient, time.Second*30)
 	exampleInformerFactory := informers.NewSharedInformerFactory(exampleClient, time.Second*30)
 
-	controller := app.NewController(kubeClient, exampleClient,
+	controller := controller2.NewController(kubeClient, exampleClient,
 		//kubeInformerFactory.Apps().V1().Deployments(),
 		exampleInformerFactory.Contro().V1alpha1().Foos())
 
-	kubeInformerFactory.Start(stopCh)
+	//kubeInformerFactory.Start(stopCh)
 	exampleInformerFactory.Start(stopCh)
 
 	if err = controller.Run(2, stopCh); err != nil {
