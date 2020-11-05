@@ -24,31 +24,31 @@ import (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Foo is a specification for a Foo resource
-type Foo struct {
+type Task struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   FooSpec   `json:"spec"`
-	Status FooStatus `json:"status"`
+	Spec   TaskSpec   `json:"spec"`
+	Status TaskStatus `json:"status"`
 }
 
 // FooSpec is the spec for a Foo resource
-type FooSpec struct {
+type TaskSpec struct {
 	DeploymentName string `json:"deploymentName"`
 	Replicas       *int32 `json:"replicas"`
 }
 
 // FooStatus is the status for a Foo resource
-type FooStatus struct {
+type TaskStatus struct {
 	AvailableReplicas int32 `json:"availableReplicas"`
 }
 
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +k8s: deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // FooList is a list of Foo resources
-type FooList struct {
+type TaskList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
 
-	Items []Foo `json:"items"`
+	Items []Task `json:"items"`
 }

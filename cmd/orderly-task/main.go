@@ -18,7 +18,7 @@ package main
 
 import (
 	"flag"
-	controller2 "k8s.io/contro/pkg/controller"
+	controller2 "k8s.io/Orderly_task/pkg/controller"
 	"time"
 
 	"k8s.io/client-go/kubernetes"
@@ -27,9 +27,9 @@ import (
 	// Uncomment the following line to load the gcp plugin (only required to authenticate against GKE clusters).
 	// _ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 
-	clientset "k8s.io/contro/pkg/generated/clientset/versioned"
-	informers "k8s.io/contro/pkg/generated/informers/externalversions"
-	"k8s.io/contro/pkg/signals"
+	clientset "k8s.io/Orderly_task/pkg/generated/clientset/versioned"
+	informers "k8s.io/Orderly_task/pkg/generated/informers/externalversions"
+	"k8s.io/Orderly_task/pkg/signals"
 )
 
 var (
@@ -62,20 +62,20 @@ func main() {
 		klog.Fatalf("Error building kubernetes clientset: %s", err.Error())
 	}
 
-	exampleClient, err := clientset.NewForConfig(cfg)
+	taskClient, err := clientset.NewForConfig(cfg)
 	if err != nil {
 		klog.Fatalf("Error building example clientset: %s", err.Error())
 	}
 
 	//kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeClient, time.Second*30)
-	exampleInformerFactory := informers.NewSharedInformerFactory(exampleClient, time.Second*30)
+	taskInformerFactory := informers.NewSharedInformerFactory(taskClient, time.Second*30)
 
-	controller := controller2.NewController(kubeClient, exampleClient,
+	controller := controller2.NewController(kubeClient, taskClient,
 		//kubeInformerFactory.Apps().V1().Deployments(),
-		exampleInformerFactory.Contro().V1alpha1().Foos())
+		taskInformerFactory.Orderly_task().V1alpha1().Tasks())
 
 	//kubeInformerFactory.Start(stopCh)
-	exampleInformerFactory.Start(stopCh)
+	taskInformerFactory.Start(stopCh)
 
 	if err = controller.Run(2, stopCh); err != nil {
 		klog.Fatalf("Error running controller: %s", err.Error())

@@ -21,7 +21,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	samplecontroller "k8s.io/contro/pkg/apis/contro"
+	samplecontroller "k8s.io/Orderly_task/pkg/apis/Orderly_task"
 )
 
 // SchemeGroupVersion is group version used to register these objects
@@ -47,8 +47,8 @@ var (
 // Adds the list of known types to Scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
-		&Foo{},
-		&FooList{},
+		&Task{},
+		&TaskList{},
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil
