@@ -21,6 +21,7 @@ import (
 	controller2 "k8s.io/Orderly_task/pkg/controller"
 	"time"
 
+	kubeInformers "k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/klog/v2"
@@ -67,14 +68,14 @@ func main() {
 		klog.Fatalf("Error building example clientset: %s", err.Error())
 	}
 
-	//kubeInformerFactory := kubeinformers.NewSharedInformerFactory(kubeClient, time.Second*30)
+	kubeInformerFactory := kubeInformers.NewSharedInformerFactory(kubeClient, time.Second*30)
 	taskInformerFactory := informers.NewSharedInformerFactory(taskClient, time.Second*30)
 
 	controller := controller2.NewController(kubeClient, taskClient,
-		//kubeInformerFactory.Apps().V1().Deployments(),
+		kubeInformerFactory.Batch().V1().Jobs(),
 		taskInformerFactory.Orderly_task().V1alpha1().Tasks())
 
-	//kubeInformerFactory.Start(stopCh)
+	kubeInformerFactory.Start(stopCh)
 	taskInformerFactory.Start(stopCh)
 
 	if err = controller.Run(1, stopCh); err != nil {

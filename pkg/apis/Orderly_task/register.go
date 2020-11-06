@@ -18,5 +18,5 @@ package Orderly_task
 
 // GroupName is the group name used in this package
 const (
-	GroupName = "Orderly_task.k8s.io"
+	GroupName = "orderly-task.k8s.io"
 )
