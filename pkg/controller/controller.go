@@ -17,9 +17,11 @@ import (
 	"k8s.io/apimachinery/pkg/util/runtime"
 	utilRuntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/util/wait"
+	batchInformers "k8s.io/client-go/informers/batch/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/kubernetes/scheme"
 	typedCoreV1 "k8s.io/client-go/kubernetes/typed/core/v1"
+	batchLister "k8s.io/client-go/listers/batch/v1"
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/tools/record"
 	"k8s.io/client-go/util/workqueue"
@@ -40,6 +42,9 @@ type Controller struct {
 
 	//deploymentsLister appslisters.DeploymentLister
 	//deploymentsSynced cache.InformerSynced
+	jobLister batchLister.JobLister
+	jobSynced cache.InformerSynced
+
 	controlsLister taskLister.TaskLister
 	controlsSynced cache.InformerSynced
 
@@ -58,8 +63,8 @@ type Controller struct {
 func NewController(
 	kubeClientSet kubernetes.Interface,
 	taskClientSet clientSet.Interface,
-
-	fooInformer informers.TaskInformer) *Controller {
+	jobInformer batchInformers.JobInformer,
+	taskInformer informers.TaskInformer) *Controller {
 
 	// Create event broadcaster
 	// Add sample-controller types to the default Kubernetes Scheme so Events can be
@@ -72,24 +77,32 @@ func NewController(
 	recorder := eventBroadcaster.NewRecorder(scheme.Scheme, coreV1.EventSource{Component: controllerAgentName})
 
 	controller := &Controller{
-		kubeClientSet: kubeClientSet,
-		taskClientSet: taskClientSet,
-		//deploymentsLister: deploymentInformer.Lister(),
-		//deploymentsSynced: deploymentInformer.Informer().HasSynced,
-		controlsLister: fooInformer.Lister(),
-		controlsSynced: fooInformer.Informer().HasSynced,
+		kubeClientSet:  kubeClientSet,
+		taskClientSet:  taskClientSet,
+		jobLister:      jobInformer.Lister(),
+		jobSynced:      jobInformer.Informer().HasSynced,
+		controlsLister: taskInformer.Lister(),
+		controlsSynced: taskInformer.Informer().HasSynced,
 		workQueue:      workqueue.NewNamedRateLimitingQueue(workqueue.DefaultControllerRateLimiter(), "Foos"),
 		recorder:       recorder,
 	}
 
 	klog.Info("Setting up event handlers")
 
-	fooInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
+	taskInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
 		AddFunc: controller.add,
 		UpdateFunc: func(old, new interface{}) {
-			controller.add(new)
+			controller.update(new)
 		},
-		DeleteFunc: controller.add,
+		DeleteFunc: controller.delete,
+	})
+
+	jobInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
+		AddFunc: controller.add,
+		UpdateFunc: func(old, new interface{}) {
+			jobUpdate(new)
+		},
+		DeleteFunc: controller.delete,
 	})
 
 	return controller
@@ -97,7 +110,17 @@ func NewController(
 
 func (c *Controller) add(obj interface{}) {
 	oObj := obj.(v1.Object)
-	fmt.Println(oObj.GetName())
+	fmt.Printf("add task: %s\n", oObj.GetName())
+}
+
+func (c *Controller) update(obj interface{}) {
+	oObj := obj.(v1.Object)
+	fmt.Printf("update task: %s\n", oObj.GetName())
+}
+
+func (c *Controller) delete(obj interface{}) {
+	oObj := obj.(v1.Object)
+	fmt.Printf("delete task: %s\n", oObj.GetName())
 }
 
 func (c *Controller) Run(threadiness int, stopCh <-chan struct{}) error {
