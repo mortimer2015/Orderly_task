@@ -22,7 +22,7 @@ import (
 	"context"
 	"time"
 
-	v1alpha1 "k8s.io/Orderly_task/pkg/apis/Orderly_task/v1alpha1"
+	v1alpha1 "k8s.io/Orderly_task/pkg/apis/orderlytask/v1alpha1"
 	scheme "k8s.io/Orderly_task/pkg/generated/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"

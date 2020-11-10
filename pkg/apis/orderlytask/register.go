@@ -14,8 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// +k8s:deepcopy-gen=package
-// +groupName=Orderly_task.k8s.io
+package orderlytask
 
-// Package v1alpha1 is the v1alpha1 version of the API.
-package v1alpha1 // import "k8s.io/sample-controller/pkg/apis/Orderly_task/v1alpha1"
+// GroupName is the group name used in this package
+const (
+	GroupName = "orderlytask.k8s.io"
+)

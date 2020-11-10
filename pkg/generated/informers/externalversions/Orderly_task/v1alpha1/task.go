@@ -22,7 +22,7 @@ import (
 	"context"
 	time "time"
 
-	Orderlytaskv1alpha1 "k8s.io/Orderly_task/pkg/apis/Orderly_task/v1alpha1"
+	Orderlytaskv1alpha1 "k8s.io/Orderly_task/pkg/apis/orderlytask/v1alpha1"
 	versioned "k8s.io/Orderly_task/pkg/generated/clientset/versioned"
 	internalinterfaces "k8s.io/Orderly_task/pkg/generated/informers/externalversions/internalinterfaces"
 	v1alpha1 "k8s.io/Orderly_task/pkg/generated/listers/Orderly_task/v1alpha1"

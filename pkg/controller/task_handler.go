@@ -6,7 +6,7 @@ package controller
 
 import (
 	"context"
-	//"k8s.io/Orderly_task/pkg/apis/Orderly_task/v1alpha1"
+	//"k8s.io/orderlytask/pkg/apis/orderlytask/v1alpha1"
 	batchV1 "k8s.io/api/batch/v1"
 	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -15,8 +15,8 @@ import (
 
 func (c *Controller) taskCreate(obj interface{}) {
 	//labels := map[string]string{
-	//	"app":        "Orderly_task",
-	//	"controller": "Orderly_task",
+	//	"app":        "orderlytask",
+	//	"controller": "orderlytask",
 	//}
 	//parallelism := int32(1)
 	oObj := obj.(v1.Object)
@@ -48,8 +48,8 @@ func (c *Controller) taskCreate(obj interface{}) {
 
 func (c *Controller) taskUpdate(obj interface{}) {
 	//labels := map[string]string{
-	//	"app":        "Orderly_task",
-	//	"controller": "Orderly_task",
+	//	"app":        "orderlytask",
+	//	"controller": "orderlytask",
 	//}
 	//parallelism := int32(1)
 	oObj := obj.(v1.Object)

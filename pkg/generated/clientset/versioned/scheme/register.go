@@ -19,7 +19,7 @@ limitations under the License.
 package scheme
 
 import (
-	orderly_taskv1alpha1 "k8s.io/Orderly_task/pkg/apis/Orderly_task/v1alpha1"
+	orderly_taskv1alpha1 "k8s.io/Orderly_task/pkg/apis/orderlytask/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

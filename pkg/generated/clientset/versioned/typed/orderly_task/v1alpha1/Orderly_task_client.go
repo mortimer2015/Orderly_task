@@ -19,7 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "k8s.io/Orderly_task/pkg/apis/Orderly_task/v1alpha1"
+	v1alpha1 "k8s.io/Orderly_task/pkg/apis/orderlytask/v1alpha1"
 	"k8s.io/Orderly_task/pkg/generated/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
@@ -29,7 +29,7 @@ type Orderly_taskV1alpha1Interface interface {
 	TasksGetter
 }
 
-// Orderly_taskV1alpha1Client is used to interact with features provided by the Orderly_task.k8s.io group.
+// Orderly_taskV1alpha1Client is used to interact with features provided by the orderlytask.k8s.io group.
 type Orderly_taskV1alpha1Client struct {
 	restClient rest.Interface
 }

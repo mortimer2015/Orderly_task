@@ -21,7 +21,7 @@ package externalversions
 import (
 	"fmt"
 
-	v1alpha1 "k8s.io/Orderly_task/pkg/apis/Orderly_task/v1alpha1"
+	v1alpha1 "k8s.io/Orderly_task/pkg/apis/orderlytask/v1alpha1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )
@@ -52,7 +52,7 @@ func (f *genericInformer) Lister() cache.GenericLister {
 // TODO extend this to unknown resources with a client pool
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
-	// Group=Orderly_task.k8s.io, Version=v1alpha1
+	// Group=orderlytask.k8s.io, Version=v1alpha1
 	case v1alpha1.SchemeGroupVersion.WithResource("tasks"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Orderly_task().V1alpha1().Tasks().Informer()}, nil
 

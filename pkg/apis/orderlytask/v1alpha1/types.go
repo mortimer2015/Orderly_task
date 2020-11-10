@@ -33,12 +33,6 @@ type Task struct {
 	Status TaskStatus      `json:"status"`
 }
 
-// TaskSpec is the spec for a Foo resource
-type TaskSpec struct {
-	DeploymentName string `json:"deploymentName"`
-	Replicas       *int32 `json:"replicas"`
-}
-
 // TaskStatus is the status for a Task resource
 type TaskStatus struct {
 	AvailableReplicas int32 `json:"availableReplicas"`

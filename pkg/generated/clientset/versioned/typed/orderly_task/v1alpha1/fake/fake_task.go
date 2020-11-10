@@ -21,7 +21,7 @@ package fake
 import (
 	"context"
 
-	v1alpha1 "k8s.io/Orderly_task/pkg/apis/Orderly_task/v1alpha1"
+	v1alpha1 "k8s.io/Orderly_task/pkg/apis/orderlytask/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -36,9 +36,9 @@ type FakeTasks struct {
 	ns   string
 }
 
-var tasksResource = schema.GroupVersionResource{Group: "Orderly_task.k8s.io", Version: "v1alpha1", Resource: "tasks"}
+var tasksResource = schema.GroupVersionResource{Group: "orderlytask.k8s.io", Version: "v1alpha1", Resource: "tasks"}
 
-var tasksKind = schema.GroupVersionKind{Group: "Orderly_task.k8s.io", Version: "v1alpha1", Kind: "Task"}
+var tasksKind = schema.GroupVersionKind{Group: "orderlytask.k8s.io", Version: "v1alpha1", Kind: "Task"}
 
 // Get takes name of the task, and returns the corresponding task object, and an error if there is any.
 func (c *FakeTasks) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Task, err error) {

@@ -21,7 +21,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	samplecontroller "k8s.io/Orderly_task/pkg/apis/Orderly_task"
+	samplecontroller "k8s.io/Orderly_task/pkg/apis/orderlytask"
 )
 
 // SchemeGroupVersion is group version used to register these objects
