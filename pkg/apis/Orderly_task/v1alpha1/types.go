@@ -17,35 +17,36 @@ limitations under the License.
 package v1alpha1
 
 import (
+	batchv1 "k8s.io/api/batch/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Foo is a specification for a Foo resource
+// Task is a specification for a Task resource
 type Task struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   TaskSpec   `json:"spec"`
-	Status TaskStatus `json:"status"`
+	Spec   batchv1.JobSpec `json:"spec"`
+	Status TaskStatus      `json:"status"`
 }
 
-// FooSpec is the spec for a Foo resource
+// TaskSpec is the spec for a Foo resource
 type TaskSpec struct {
 	DeploymentName string `json:"deploymentName"`
 	Replicas       *int32 `json:"replicas"`
 }
 
-// FooStatus is the status for a Foo resource
+// TaskStatus is the status for a Task resource
 type TaskStatus struct {
 	AvailableReplicas int32 `json:"availableReplicas"`
 }
 
 // +k8s: deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// FooList is a list of Foo resources
+// TaskList is a list of Task resources
 type TaskList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`

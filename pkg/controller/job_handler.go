@@ -40,7 +40,7 @@ func GetClient() *kubernetes.Clientset {
 	return kubeClient
 }
 
-func create() {
+func jobCreate() {
 	client := GetClient()
 	labels := map[string]string{
 		"app":        "nginx",

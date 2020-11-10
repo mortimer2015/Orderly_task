@@ -34,6 +34,7 @@ const controllerAgentName = "control"
 const (
 	SuccessSynced         = "Synced"
 	MessageResourceSynced = "Student synced successfully"
+	BaseTaskName          = "Task-d67s5ou4a-"
 )
 
 type Controller struct {
@@ -90,9 +91,9 @@ func NewController(
 	klog.Info("Setting up event handlers")
 
 	taskInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
-		AddFunc: controller.add,
+		AddFunc: controller.taskCreate,
 		UpdateFunc: func(old, new interface{}) {
-			controller.update(new)
+			controller.taskUpdate(new)
 		},
 		DeleteFunc: controller.delete,
 	})
